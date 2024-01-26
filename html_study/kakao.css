@@ -1,0 +1,92 @@
+#main_box{
+    width: 100%;
+    /* background-color: antiquewhite; */
+}
+
+.title{
+    width: 100%;
+    text-align: center;
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+
+.input_box{
+    display: flex;
+    justify-content: center;
+}
+
+.input{
+    width: 100%;
+    height: 30px;
+    border: none;
+    border-bottom: 1px solid;
+    margin-top: 10px;
+}
+
+#loginInfoSave{
+    margin-top: 25px;
+}
+
+#bar{
+    font-size: 15px;
+    margin-top: 10px;
+    font-weight: lighter;
+}
+
+#login_btn{
+    margin-top: 20px;
+    background-color: rgb(250, 230, 77);
+}
+
+#qr_btn{
+    margin-top: 10px;
+}
+
+.btn{
+    width: 100%;
+    height: 50px;
+    font-size: 15px;
+    border: none;
+    border-radius: 5px;
+    
+}
+
+.s_btn{
+    font-size: 12px;
+    border: none;
+    background-color: white;
+}
+
+#s_btn_box{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+footer{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}
+
+#footer_box{
+    border-top: 1px solid gray;
+}
+
+ul{
+    display: flex;
+}
+
+li{
+    font-size: 12px;
+    list-style-type: none;
+    margin-left: 10px;
+}
+
+#copy{
+    font-size: 12px;
+    text-align: center;
+    margin-bottom: 20px;
+}
