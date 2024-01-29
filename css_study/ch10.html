@@ -29,7 +29,9 @@
                 background-color: blue;
             }
 
-            input[type="checkbox"]:checked + label > div:not(#chk1) {
+            input[type="checkbox"]:checked
+                + label
+                > div:not(#chk1:checked + label > div) {
                 background-color: red;
             }
         </style>
