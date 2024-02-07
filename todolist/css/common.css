@@ -16,4 +16,7 @@ button {
     &:active {
         background-color: #fafafa;
     }
+    &:focus {
+        outline: none;
+    }
 }
