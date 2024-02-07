@@ -42,10 +42,17 @@ function handleAddToDoModalOpen() {
     const modal = document.querySelector(".root-modal");
     const title = modal.querySelector(".modal-title");
     const todoInput = modal.querySelector(".todo-input");
-    const submitButton = modal.querySelectorAll(".modal-button");
+    const submitButton = modal.querySelector(".modal-button");
     title.innerHTML = "추가하기";
     todoInput.value = "";
-    submitButton[0].onclick = handleAddToDoSubmit;
+    submitButton.onclick = handleAddToDoSubmit;
+
+    todoInput.onkeydown = (e) => {
+        if (e.ctrlKey && e.keyCode === 13) {
+            submitButton.onclick();
+        }
+    };
+
     modal.classList.add("modal-show");
 }
 
@@ -53,7 +60,7 @@ function handleEditToDoModalOpen(todoId) {
     const modal = document.querySelector(".root-modal");
     const title = modal.querySelector(".modal-title");
     const todoInput = modal.querySelector(".todo-input");
-    const submitButton = modal.querySelectorAll(".modal-button");
+    const submitButton = modal.querySelector(".modal-button");
     title.innerHTML = "수정하기";
 
     let todoListJson = localStorage.getItem("todoList");
@@ -63,7 +70,13 @@ function handleEditToDoModalOpen(todoId) {
     let findTodoByTodoId = todoList.filter((todo) => todo.todoId === todoId)[0];
 
     todoInput.value = findTodoByTodoId.content;
-    submitButton[0].onclick = handleEditToDoSubmit;
+    submitButton.onclick = () => handleEditToDoSubmit(todoId);
+
+    todoInput.onkeydown = (e) => {
+        if (e.ctrlKey && e.keyCode === 13) {
+            submitButton.onclick();
+        }
+    };
 
     modal.classList.add("modal-show");
 }
@@ -101,9 +114,34 @@ function handleAddToDoSubmit() {
     getTodoList();
 }
 
-function handleEditToDoSubmit() {
+function handleEditToDoSubmit(todoId) {
     const modal = document.querySelector(".root-modal");
     modal.classList.remove("modal-show");
+
+    let todoListJson = localStorage.getItem("todoList");
+    let todoList =
+        todoListJson !== null ? JSON.parse(todoListJson) : new Array();
+
+    let findIndex = -1;
+
+    for (let i = 0; i < todoList.length; i++) {
+        if (todoList[i].todoId === todoId) {
+            findIndex = i;
+            break;
+        }
+    }
+
+    if (findIndex === -1) {
+        alert("수정오류!");
+        return;
+    }
+
+    todoList[findIndex].content = document.querySelector(".todo-input").value;
+    todoList[findIndex].date = convertDateKor(new Date());
+
+    localStorage.setItem("todoList", JSON.stringify(todoList));
+
+    getTodoList();
 }
 
 function handleCancelClick() {

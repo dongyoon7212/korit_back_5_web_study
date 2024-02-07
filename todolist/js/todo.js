@@ -1,21 +1,14 @@
 window.onload = () => {
     getTodoList();
 
-    let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-    let newArr = [];
-    console.log(arr);
+    // const todoInput = document.querySelector(".todo-input");
 
-    for (let i = 0; i < arr.length; i++) {
-        if (arr[i] % 2 === 0) {
-            newArr.push(arr[i]);
-        }
-    }
-
-    console.log(newArr);
-
-    let newArr2 = arr.filter((num) => num % 2 === 0);
-
-    console.log(newArr2);
+    // todoInput.onkeydown = (e) => {
+    //     console.log(e.keyCode);
+    //     if (e.ctrlKey && e.keyCode === 13) {
+    //         alert("test");
+    //     }
+    // };
 };
 
 function getTodoList() {
@@ -45,11 +38,26 @@ function getTodoList() {
                     <button class="todo-edit-button" onclick="handleEditToDoModalOpen(${todo.todoId})">
                         <i class="fa-solid fa-pencil"></i>
                     </button>
-                    <button class="todo-remove-button">
+                    <button class="todo-remove-button" onclick="handleRemoveTodoClick(${todo.todoId})">
                         <i class="fa-regular fa-trash-can"></i>
                     </button>
                 </div>
             </li>
         `;
     }
+}
+
+function handleRemoveTodoClick(todoId) {
+    let selected = confirm("정말로 삭제하시겠습니까?");
+    if (!selected) {
+        return;
+    }
+
+    const todoListJson = localStorage.getItem("todoList");
+    const todoList =
+        todoListJson !== null ? JSON.parse(todoListJson) : new Array();
+    const newTodoList = todoList.filter((todo) => todo.todoId !== todoId);
+
+    localStorage.setItem("todoList", JSON.stringify(newTodoList));
+    getTodoList();
 }
