@@ -18,6 +18,18 @@
 // console.log(obj);
 // console.log(obj2);
 
+// 비구조 할당
+
+// let obj = {
+//     id: 1,
+//     name: "이동윤",
+//     age: 26,
+// };
+
+// let { id, age } = obj;
+
+// console.log(id, age);
+
 let dataList = [];
 window.onload = () => {
     getDataList();
@@ -43,21 +55,25 @@ window.onload = () => {
     };
 };
 
+function contentData({ id, content }) {
+    return `
+                <li>
+                    <span>${id}번</span>
+                    <span>${content}</span>
+                    <input type="text" class="edit-inputs" value="${content}" />
+                    <button onclick="editData(${id})">수정</button>
+                    <button onclick="removeData(${id})">삭제</button>
+                </li>
+            `;
+}
+
 function getDataList() {
     const contentList = document.querySelector(".content-list");
 
     contentList.innerHTML = "";
 
     for (dataObj of dataList) {
-        contentList.innerHTML += `
-            <li>
-                <span>${dataObj.id}번</span>
-                <span>${dataObj.content}</span>
-                <input type="text" class="edit-inputs" value="${dataObj.content}" />
-                <button onclick="editData(${dataObj.id})">수정</button>
-                <button onclick="removeData(${dataObj.id})">삭제</button>
-            </li>
-        `;
+        contentList.innerHTML += contentData(dataObj);
     }
 }
 
