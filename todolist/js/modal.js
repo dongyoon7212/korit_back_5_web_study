@@ -48,7 +48,7 @@ function handleAddToDoModalOpen() {
     submitButton.onclick = handleAddToDoSubmit;
 
     todoInput.onkeydown = (e) => {
-        if (e.ctrlKey && e.keyCode === 13) {
+        if (!e.shiftKey && e.keyCode === 13) {
             submitButton.onclick();
         }
     };
@@ -73,7 +73,7 @@ function handleEditToDoModalOpen(todoId) {
     submitButton.onclick = () => handleEditToDoSubmit(todoId);
 
     todoInput.onkeydown = (e) => {
-        if (e.ctrlKey && e.keyCode === 13) {
+        if (!e.shiftKey && e.keyCode === 13) {
             submitButton.onclick();
         }
     };
@@ -93,7 +93,6 @@ function convertDateKor(currentDate) {
 function handleAddToDoSubmit() {
     const modal = document.querySelector(".root-modal");
     const todoInput = modal.querySelector(".todo-input");
-    modal.classList.remove("modal-show");
 
     let todoListJson = localStorage.getItem("todoList");
     let todoList =
@@ -102,21 +101,26 @@ function handleAddToDoSubmit() {
     let lastTodoId =
         todoList.length === 0 ? 0 : todoList[todoList.length - 1].todoId;
 
-    let todoObject = {
-        todoId: lastTodoId + 1,
-        content: todoInput.value,
-        date: convertDateKor(new Date()),
-    };
+    if (todoInput.value === "") {
+        alert("내용을 입력하세요!");
+    } else {
+        let todoObject = {
+            todoId: lastTodoId + 1,
+            content: todoInput.value,
+            date: convertDateKor(new Date()),
+        };
 
-    todoList.push(todoObject);
+        todoList.push(todoObject);
 
-    localStorage.setItem("todoList", JSON.stringify(todoList));
-    getTodoList();
+        localStorage.setItem("todoList", JSON.stringify(todoList));
+        modal.classList.remove("modal-show");
+
+        getTodoList();
+    }
 }
 
 function handleEditToDoSubmit(todoId) {
     const modal = document.querySelector(".root-modal");
-    modal.classList.remove("modal-show");
 
     let todoListJson = localStorage.getItem("todoList");
     let todoList =
@@ -139,9 +143,14 @@ function handleEditToDoSubmit(todoId) {
     todoList[findIndex].content = document.querySelector(".todo-input").value;
     todoList[findIndex].date = convertDateKor(new Date());
 
-    localStorage.setItem("todoList", JSON.stringify(todoList));
+    if (todoList[findIndex].content === "") {
+        alert("내용을 입력하세요!");
+    } else {
+        localStorage.setItem("todoList", JSON.stringify(todoList));
+        modal.classList.remove("modal-show");
 
-    getTodoList();
+        getTodoList();
+    }
 }
 
 function handleCancelClick() {
