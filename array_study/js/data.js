@@ -57,6 +57,8 @@ window.onload = () => {
                 body: JSON.stringify(dataObj),
             });
 
+            alert("추가 되었습니다.");
+
             dataList = [...dataList, dataObj];
             addInput.value = "";
             getDataList();
