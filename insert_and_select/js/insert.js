@@ -1,4 +1,4 @@
-function handleSubmitClick() {
+async function handleSubmitClick() {
     const dataInputs = document.querySelectorAll(".data-inputs");
 
     const data = {
@@ -20,14 +20,22 @@ function handleSubmitClick() {
         body: jsonData,
     };
 
-    fetch(
+    const response = await fetch(
         "http://localhost:8080//insert_and_select/data/addition",
         option
-    ).then((response) => {
-        response.json().then((json) => {
-            console.log(json.data);
-        });
-    }); // then 안에는 함수가 들어간다.
+    );
+    // .then((response) => {
+    //     response.json().then((json) => {
+    //         console.log(json.data);
+    //         console.log("test");
+    //     });
+    // }); // then 안에는 함수가 들어간다.
+    // 위는 promise로 사용할 경우
+
+    // async await사용할 경우
+    const json = await response.json();
+
+    console.log(json);
 
     console.log("test");
 

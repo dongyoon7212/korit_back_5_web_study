@@ -24,13 +24,15 @@ async function fx3() {
     // });
     let fx1Result = await fx1();
     // await는 fx1이 실행이 다 끝나고 리턴값을 반환함
+    // promise를 리턴하는게 아니라 리턴값을 반환함
     // fx1의 비동기가 다 끝날때까지 기다림
     // 비동기를 동기로 바꿔주는게 await
     arg = fx1Result;
-    fx2(arg);
+    await fx2(arg);
+    // await은 async함수 안에서만 사용 가능
 }
 
-function handleSubmitClick2() {
+async function handleSubmitClick2() {
     // console.log(fx1());
     // fx1()
     //     .then((result) => {
@@ -42,7 +44,7 @@ function handleSubmitClick2() {
     //     });
 
     // console.log("동기 실행");
-    fx3();
+    await fx3();
 }
 
 function handleSubmitClick() {
