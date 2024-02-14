@@ -39,8 +39,6 @@ p.then((response) => {
     .catch((error) => {
         console.log(error);
     })
-    .finally(() => {
-        
-    }); // resolve가 실행 됐을때 실행
+    .finally(() => {}); // resolve가 실행 됐을때 실행
 
 console.log("여기가 먼저");
