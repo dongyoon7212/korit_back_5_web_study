@@ -55,11 +55,14 @@ async function handleAddClick() {
             throw await response.json();
         }
 
-        console.log(response);
+        const responseData = await response.json();
+        console.log(responseData);
 
-        alert("정상적으로 등록이 완료되었습니다.");
+        alert(
+            `정상적으로 등록이 ${responseData.successCount}건  완료되었습니다.`
+        );
     } catch (error) {
-        alert(error.errorMessage);
+        alert(error?.errorMessage);
     }
 
     productInputs[0].value = "";

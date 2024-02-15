@@ -13,16 +13,20 @@ async function handleSearchClick() {
         productList.innerHTML = ``;
 
         for (let product of productDataList) {
-            productList.innerHTML += `
-                <tr>
-                    <th>${product.productId}</th>
-                    <th>${product.productName}</th>
-                    <th>${product.productPrice}원</th>
-                    <th>${product.productSize}</th>
-                </tr>
-            `;
+            productList.innerHTML += ProductInfoTr(product);
         }
     } catch (error) {
         console.log(error);
     }
+}
+
+function ProductInfoTr({ productId, productName, productPrice, productSize }) {
+    return `
+        <tr>
+            <th>${productId}</th>
+            <th>${productName}</th>
+            <th>${productPrice}원</th>
+            <th>${productSize}</th>
+        </tr>
+`;
 }
