@@ -12,7 +12,7 @@ async function handleSearchClick() {
 
         productList.innerHTML = ``;
 
-        for (let product of productDataList.data) {
+        for (let product of productDataList) {
             productList.innerHTML += `
                 <tr>
                     <th>${product.productId}</th>
