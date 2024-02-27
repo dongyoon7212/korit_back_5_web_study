@@ -10,9 +10,13 @@ function main() {
         gugudan(3, 2, "오동윤"),
     ];
 
-    Promise.all(promises).then((result) => {
-        console.log(result);
-    });
+    Promise.all(promises)
+        .then((result) => {
+            console.log(result);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
 }
 
 function gugudan(index, time, name) {
@@ -21,10 +25,14 @@ function gugudan(index, time, name) {
 
         setTimeout(() => {
             console.log(`${name}: 다 외웠어요!!`);
-            // complete = complete.map((value, cIndex) => {
-            //     cIndex !== index ? value : true;
-            // });
-            resolve(true);
+            complete = complete.map((value, cIndex) => {
+                cIndex !== index ? value : true;
+            });
+            if (index === 0) {
+                reject("오류");
+                return;
+            }
+            resolve(index);
         }, time * 1000);
     });
 
